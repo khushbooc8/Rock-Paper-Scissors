@@ -14,117 +14,98 @@ const scissor_div = document.getElementById("s");
 const ComputerMove_p = document.querySelector(".Computer-Move > p");
 const UserMove_p = document.querySelector(".User-Move > p");
 
-
-
-function getCompChoice(){
-    const choices = ['r', 'p', 's'];
-    const random_val = Math.floor(Math.random() * 3);
-    return choices[random_val];
+function getCompChoice() {
+  const choices = ["r", "p", "s"];
+  const random_val = Math.floor(Math.random() * 3);
+  return choices[random_val];
 }
 
-function convertToWord(letter){
-    console.log("here")
-    if(letter === "r"){
-        return "Rock";
-    } else if(letter === "p"){
-        return "Paper";
-    } else{
-        return "Scissors";
-    }
-
+function convertToWord(letter) {
+  console.log("here");
+  if (letter === "r") {
+    return "Rock";
+  } else if (letter === "p") {
+    return "Paper";
+  } else {
+    return "Scissors";
+  }
 }
 
-
-function win(userChoice, computerChoice){
-    console.log("here in win")
-    userScoreDisplay++;
-    userScore_span.innerHTML = userScoreDisplay;
-    result_p.innerHTML= convertToWord(userChoice) + " beats " + convertToWord(computerChoice) + ". Congratulations! You win!"
-
+function win(userChoice, computerChoice) {
+  console.log("here in win");
+  userScoreDisplay++;
+  userScore_span.innerHTML = userScoreDisplay;
+  result_p.innerHTML =
+    convertToWord(userChoice) +
+    " beats " +
+    convertToWord(computerChoice) +
+    ". Congratulations! You win!";
 }
 
-
-function lose(userChoice, computerChoice){
-    console.log("here in lose")
-    computerScoreDisplay++;
-    computerScore_span.innerHTML = computerScoreDisplay;
-    result_p.innerHTML= convertToWord(computerChoice) + " beats " + convertToWord(userChoice) + ". Boo! You lose!"
-    
+function lose(userChoice, computerChoice) {
+  console.log("here in lose");
+  computerScoreDisplay++;
+  computerScore_span.innerHTML = computerScoreDisplay;
+  result_p.innerHTML =
+    convertToWord(computerChoice) +
+    " beats " +
+    convertToWord(userChoice) +
+    ". Boo! You lose!";
 }
 
-
-function draw(userChoice, computerChoice){
-    result_p.innerHTML= "Draw!"
-    
+function draw(userChoice, computerChoice) {
+  result_p.innerHTML = "Draw!";
 }
 
+function Game(userChoice) {
+  const compChoice = getCompChoice();
 
-function Game(userChoice){
-    const compChoice = getCompChoice();
+  switch (userChoice + compChoice) {
+    case "rs":
+    case "pr":
+    case "sp":
+      //user Wins
 
-    switch(userChoice + compChoice){
-        case "rs":
-        case "pr":
-        case "sp":
-        //user Wins
+      ComputerMove_p.innerHTML = "Computer: " + convertToWord(compChoice);
+      UserMove_p.innerHTML = "User: " + convertToWord(userChoice);
+      win(userChoice, compChoice);
 
-        ComputerMove_p.innerHTML = "Computer: " + convertToWord(compChoice);
-        UserMove_p.innerHTML = "User: " + convertToWord(userChoice);
-       win(userChoice, compChoice)
+      break;
 
-        break;
+    case "rp":
+    case "ps":
+    case "sr":
+      //user loses
+      ComputerMove_p.innerHTML = "Computer: " + convertToWord(compChoice);
+      UserMove_p.innerHTML = "User: " + convertToWord(userChoice);
+      lose(userChoice, compChoice);
+      break;
 
-        case "rp":
-        case "ps":
-        case "sr":
-        //user loses
-        ComputerMove_p.innerHTML = "Computer: " + convertToWord(compChoice);
-        UserMove_p.innerHTML = "User: " + convertToWord(userChoice);
-        lose(userChoice, compChoice)
-        break;
-
-        case "rr":
-        case "pp":
-        case "ss":
-        //draw
-        ComputerMove_p.innerHTML = "Computer: " + convertToWord(compChoice);
-        UserMove_p.innerHTML = "User: " + convertToWord(userChoice);
-        draw(userChoice, compChoice)
-        break;
-    
-    }
-
+    case "rr":
+    case "pp":
+    case "ss":
+      //draw
+      ComputerMove_p.innerHTML = "Computer: " + convertToWord(compChoice);
+      UserMove_p.innerHTML = "User: " + convertToWord(userChoice);
+      draw(userChoice, compChoice);
+      break;
+  }
 }
-
 
 main();
 
-function main(){
-    console.log("here in main. about to start ")
+function main() {
+  console.log("here in main. about to start ");
 
-rock_div.addEventListener('click', function() {
-   Game("r")
-})
+  rock_div.addEventListener("click", function () {
+    Game("r");
+  });
 
-paper_div.addEventListener('click', function() {
-    Game("p")
- })
+  paper_div.addEventListener("click", function () {
+    Game("p");
+  });
 
-scissor_div.addEventListener('click', function() {
-    Game("s")
- })
-
+  scissor_div.addEventListener("click", function () {
+    Game("s");
+  });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
